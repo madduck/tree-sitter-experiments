@@ -1,0 +1,56 @@
+===
+Email
+===
+From: foo@example.org
+
+---
+(source
+  (label)
+  (whitespace)
+  (email))
+
+===
+Bracketed email
+===
+From: <foo@example.org>
+
+---
+(source
+  (label)
+  (whitespace)
+  (bracketed_email
+    (email)))
+
+===
+Name and email
+===
+From: Foo Bar <foo@example.org>
+
+---
+(source
+  (label)
+  (whitespace)
+  (name
+   (alnum_word)
+   (whitespace)
+   (alnum_word))
+  (whitespace)
+  (email))
+
+===
+Quoted name and email
+===
+From: "Foo X. Bar" <foo@example.org>
+
+---
+(source
+  (label)
+  (whitespace)
+  (quoted_name
+   (word)
+   (whitespace)
+   (word)
+   (whitespace)
+   (word))
+  (whitespace)
+  (email))

@@ -9,7 +9,7 @@ Each experiment consists of a grammar, possibly a scanner, and test cases.
 ## How to run
 
 ```
-git clone https://github.com/madduck/tree-sitter-experiments
+git clone https://github.com/madduck/tree-sitter-experiments -b email-correspondent
 tree-sitter generate
 tree-sitter test
 ```
