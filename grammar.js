@@ -10,8 +10,29 @@
 module.exports = grammar({
   name: "test",
 
+  extras: _$ => [],
+  externals: $ => [
+    $.newline,
+    $.whitespace,
+    $.logical_linebreak,
+    $.double_newline
+  ],
+
   rules: {
-    // TODO: add the actual grammar rules
-    source_file: $ => "hello"
+    // Any number of logical lines
+    source: $ => seq(
+      $.marker,
+      choice(
+        $.newline,
+        $.whitespace,
+        $.logical_linebreak,
+        $.double_newline
+      ),
+      optional($.newline),
+      $.marker,
+      optional(/\r?\n/),
+    ),
+
+    marker: _$ => "x",
   }
 });

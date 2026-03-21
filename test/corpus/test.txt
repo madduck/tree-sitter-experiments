@@ -1,0 +1,135 @@
+===
+Test newline
+===
+x
+x
+
+---
+(source
+  (marker)
+  (newline)
+  (marker))
+
+===
+Test newline with linefeed
+===
+x
+x
+
+---
+(source
+  (marker)
+  (newline)
+  (marker))
+
+===
+Test newline trailing whitespace
+===
+x   
+x
+
+---
+(source
+  (marker)
+  (newline)
+  (marker))
+
+===
+Test whitespace
+===
+x    	x
+
+---
+(source
+  (marker)
+  (whitespace)
+  (marker))
+
+===
+Test double newline
+===
+x
+
+x
+
+---
+(source
+  (marker)
+  (double_newline)
+  (marker))
+
+===
+Test double newline with linefeed
+===
+x
+
+x
+
+---
+(source
+  (marker)
+  (double_newline)
+  (marker))
+
+===
+Test double newline trailing whitespace
+===
+x  
+
+x
+
+---
+(source
+  (marker)
+  (double_newline)
+  (marker))
+
+===
+Test logical linebreak
+===
+x
+ x
+
+---
+(source
+  (marker)
+  (logical_linebreak)
+  (marker))
+
+===
+Test logical linebreak multiple
+===
+x
+	 x
+
+---
+(source
+  (marker)
+  (logical_linebreak)
+  (marker))
+
+===
+Test logical linebreak trailing whitespace
+===
+x  
+ x
+
+---
+(source
+  (marker)
+  (logical_linebreak)
+  (marker))
+
+===
+Test logical linebreak without content in second line
+===
+x  
+ 
+x
+
+---
+(source
+  (marker)
+  (logical_linebreak)
+  (newline)
+  (marker))
