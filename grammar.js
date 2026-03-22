@@ -15,7 +15,7 @@ module.exports = grammar({
   rules: {
     source: $ => seq(
       alias("From:", $.label),
-      $.whitespace,
+      field("headersep", $.whitespace),
       choice(
         // what follows now is either a simple email address
         // From: foo@example.org
@@ -35,7 +35,7 @@ module.exports = grammar({
                 $.quoted_name
               ),
               // and some whitespace …
-              $.whitespace,
+              field("ws_after_name", $.whitespace),
             )
             // note about whitespace: I need this as a token
             // because of logical line continuations, so please don't
@@ -74,13 +74,13 @@ module.exports = grammar({
        */
       seq(
         $.alnum_word,
-        repeat(seq($.whitespace, $.alnum_word))
+        repeat(seq(field("ws_in_name", $.whitespace), $.alnum_word))
       )
     ),
     quoted_name: $ => seq(
       '"',
       $.word,
-      repeat(seq($.whitespace, $.word)),
+      repeat(seq(field("ws_in_qname", $.whitespace), $.word)),
       '"'
     ),
 
