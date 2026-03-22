@@ -11,6 +11,7 @@ module.exports = grammar({
   name: "test",
 
   extras: _$ => [],
+  conflicts: $ => [[$.name]],
 
   rules: {
     source: $ => seq(
@@ -50,31 +51,15 @@ module.exports = grammar({
     ),
 
     name: $ =>
-      /* Without prec.right or prec.left, there's an unresolved conflict:
-       *
-       * Unresolved conflict for symbol sequence:
-       *
-       *   'From: '  '_alnum_word'  •  '_whitespace'  …
-       * 
-       * Possible interpretations:
-       *
-       *   1:  'From: '  (name  '_alnum_word'  •  name_repeat1)
-       *   2:  'From: '  (name  '_alnum_word')  •  '_whitespace'  …
-       *
-       * Possible resolutions:
-       *
-       *   1:  Specify a left or right associativity in `name`
-       *   2:  Add a conflict for these rules: `name`
-       *
-       * prec.right in this context makes sense, as the lexer should consume
-       * as many whitespace-delimited words as it can.
-       */
-      prec.right(
-        seq(
-          $.alnum_word,
-          repeat(seq(
+      // $.name is included in conflicts above such that TS can resolve the
+      // ambiguity that arises when $.name is followed by $.whitespace.
+      seq(
+        $.alnum_word,
+        repeat(
+          seq(
             alias($.whitespace, $.ws_between_name_words),
-            $.alnum_word))
+            $.alnum_word
+          )
         )
       ),
     quoted_name: $ =>
