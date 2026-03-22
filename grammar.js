@@ -49,7 +49,7 @@ module.exports = grammar({
       optional(/\r?\n/),
     ),
 
-    name: $ => prec.right(
+    name: $ =>
       /* Without prec.right or prec.left, there's an unresolved conflict:
        *
        * Unresolved conflict for symbol sequence:
@@ -66,18 +66,17 @@ module.exports = grammar({
        *   1:  Specify a left or right associativity in `name`
        *   2:  Add a conflict for these rules: `name`
        *
-       * Where is this conflict, and why is there no complaint about
-       * the `quoted_name` further down?
-       *
-       * And what do we use? prec.right and prec.left both give different
-       * errors in the test output.
+       * prec.right in this context makes sense, as the lexer should consume
+       * as many whitespace-delimited words as it can.
        */
-      seq(
-        $.alnum_word,
-        repeat(seq(field("ws_in_name", $.whitespace), $.alnum_word))
-      )
-    ),
+      prec.right(
+        seq(
+          $.alnum_word,
+          repeat(seq(field("ws_in_name", $.whitespace), $.alnum_word))
+        )
+      ),
     quoted_name: $ => seq(
+      // prec.right not needed here due to the final quote
       '"',
       $.word,
       repeat(seq(field("ws_in_qname", $.whitespace), $.word)),
