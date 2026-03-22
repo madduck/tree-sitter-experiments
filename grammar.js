@@ -15,7 +15,7 @@ module.exports = grammar({
   rules: {
     source: $ => seq(
       alias("From:", $.label),
-      field("headersep", $.whitespace),
+      field("headersep", $.ws_after_label),
       choice(
         // what follows now is either a simple email address
         // From: foo@example.org
@@ -35,7 +35,7 @@ module.exports = grammar({
                 $.quoted_name
               ),
               // and some whitespace …
-              field("ws_after_name", $.whitespace),
+              field("ws_after_name", $.ws_after_name_before_email),
             )
             // note about whitespace: I need this as a token
             // because of logical line continuations, so please don't
@@ -72,14 +72,14 @@ module.exports = grammar({
       prec.right(
         seq(
           $.alnum_word,
-          repeat(seq(field("ws_in_name", $.whitespace), $.alnum_word))
+          repeat(seq(field("ws_in_name", $.ws_between_name_words), $.alnum_word))
         )
       ),
     quoted_name: $ => seq(
       // prec.right not needed here due to the final quote
       '"',
       $.word,
-      repeat(seq(field("ws_in_qname", $.whitespace), $.word)),
+      repeat(seq(field("ws_in_qname", $.ws_between_qname_words), $.word)),
       '"'
     ),
 
@@ -87,6 +87,10 @@ module.exports = grammar({
     bracketed_email: $ => seq("<", $.email, ">"),
 
     whitespace: _$ => /[ \t]+/,
+    ws_after_label: _$ => /[ \t]+/,
+    ws_after_name_before_email: _$ => /[ \t]+/,
+    ws_between_name_words: _$ => /[ \t]+/,
+    ws_between_qname_words: _$ => /[ \t]+/,
     word: _$ => /\S+/,
     alnum_word: _$ => /\w+/,
   }
