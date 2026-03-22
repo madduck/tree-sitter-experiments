@@ -4,9 +4,10 @@ Email
 From: foo@example.org
 
 ---
+
 (source
   (label)
-  (whitespace)
+  (ws_after_label)
   (email))
 
 ===
@@ -15,9 +16,10 @@ Bracketed email
 From: <foo@example.org>
 
 ---
+
 (source
   (label)
-  (whitespace)
+  (ws_after_label)
   (bracketed_email
     (email)))
 
@@ -27,15 +29,17 @@ Name and email
 From: Foo Bar <foo@example.org>
 
 ---
+
 (source
   (label)
-  (whitespace)
+  (ws_after_label)
   (name
-   (alnum_word)
-   (whitespace)
-   (alnum_word))
-  (whitespace)
-  (email))
+    (alnum_word)
+    (ws_between_name_words)
+    (alnum_word))
+  (ws_after_name_before_email)
+  (bracketed_email
+    (email)))
 
 ===
 Quoted name and email
@@ -43,14 +47,16 @@ Quoted name and email
 From: "Foo X. Bar" <foo@example.org>
 
 ---
+
 (source
   (label)
-  (whitespace)
+  (ws_after_label)
   (quoted_name
-   (word)
-   (whitespace)
-   (word)
-   (whitespace)
-   (word))
-  (whitespace)
-  (email))
+    (word)
+    (ws_between_qname_words)
+    (word)
+    (ws_between_qname_words)
+    (word))
+  (ws_after_name_before_email)
+  (bracketed_email
+    (email)))

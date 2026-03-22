@@ -67,9 +67,12 @@ module.exports = grammar({
       seq(
         '"',
         $.word,
-        repeat(seq(
-          alias($.whitespace, $.ws_between_qname_words),
-          $.word)),
+        repeat(
+          seq(
+            alias($.whitespace, $.ws_between_qname_words),
+            $.word
+          )
+        ),
         '"'
       ),
 
@@ -77,7 +80,7 @@ module.exports = grammar({
     bracketed_email: $ => seq("<", $.email, ">"),
 
     whitespace: _$ => /[ \t]+/,
-    word: _$ => /\S+/,
+    word: _$ => /[^"\s]+/,
     alnum_word: _$ => /\w+/,
   }
 });
