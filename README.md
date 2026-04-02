@@ -11,6 +11,7 @@ Each experiment consists of a grammar, possibly a scanner, and test cases.
 ```
 git clone https://github.com/madduck/tree-sitter-experiments
 tree-sitter generate
+npm install
 tree-sitter test
 ```
 
