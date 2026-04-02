@@ -1,0 +1,71 @@
+===
+One
+===
+
+one: one
+
+---
+
+(source_file
+  (pair
+    (key)
+    (colon)
+    (hspace)
+    (value
+      (word)))
+  (newline))
+
+===
+Two-three
+===
+
+two-three: 23
+
+---
+
+(source_file
+  (pair
+    (key)
+    (colon)
+    (hspace)
+    (value
+      (word)))
+  (newline))
+
+===
+Four
+===
+
+four: four and four
+
+---
+
+(source_file
+  (pair
+    (key)
+    (colon)
+    (hspace)
+    (value
+      (word)
+      (hspace)
+      (word)
+      (hspace)
+      (word)))
+  (newline))
+
+===
+Five
+===
+
+five: 10-5
+
+---
+
+(source_file
+  (pair
+    (key)
+    (colon)
+    (hspace)
+    (value
+      (word)))
+  (newline))
